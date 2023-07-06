@@ -79,12 +79,12 @@ package MyStack;
   {
     my ($class) = @_;
     
-    my $self = {};
+    my $self =
+    {
+      stack => [],
+    };
     
     bless $self, $class;
-    
-    # Задать пустой массив, в нем будем хранить элементы
-    $self->{stack} = [];
     
     return $self;
   }
