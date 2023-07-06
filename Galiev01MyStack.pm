@@ -84,7 +84,7 @@ package MyStack;
     bless $self, $class;
     
     # Задать пустой массив, в нем будем хранить элементы
-    $self->{'stack'} = [];
+    $self->{stack} = [];
     
     return $self;
   }
@@ -93,7 +93,7 @@ package MyStack;
   sub count
   {
     my($self) = @_;
-    return (scalar(@{$self->{'stack'}}));
+    return (scalar(@{$self->{stack}}));
   }
   
   # Проверить, что стек пуст
@@ -107,7 +107,7 @@ package MyStack;
   sub peek
   {
     my($self) = @_;
-    return $self->{'stack'}->[STACK_BOTTOM];
+    return $self->{stack}->[STACK_BOTTOM];
   }
   
   # Получить элемент по индексу, но не удалять его из стека
@@ -128,11 +128,11 @@ package MyStack;
     # Можно изменить реализацию вставки через splice, чтобы вершина стека соответствовала 0 элементу массива
     if($_index < 0)
     {
-      $self->{'stack'}->[-($_index + 1)];
+      $self->{stack}->[-($_index + 1)];
     }
     else
     {
-      $self->{'stack'}->[(-$_index) - 1];
+      $self->{stack}->[(-$_index) - 1];
     }
   }
   
@@ -140,14 +140,14 @@ package MyStack;
   sub pop
   {
     my($self) = @_;
-    return pop(@{$self->{'stack'}});
+    return pop(@{$self->{stack}});
   }
   
   # Очистить стек
   sub clear
   {
     my($self) = @_;
-    $self->{'stack'} = [];
+    $self->{stack} = [];
     return SUCCESS;
   }
   
@@ -158,7 +158,7 @@ package MyStack;
     
     if(defined $item)
     {
-      push(@{$self->{'stack'}}, $item);
+      push(@{$self->{stack}}, $item);
     }
     
     return $self->count();
