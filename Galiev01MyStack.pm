@@ -64,105 +64,104 @@
 
 
 package MyStack;
-{
-  use strict;
-  use warnings;
-  
-  
-  use constant FALSE                             => 0;
-  use constant TRUE                              => 1;
-  use constant STACK_BOTTOM                      => -1;
-  use constant SUCCESS                           => -1;
 
-  # Конструктор
-  sub new 
+use strict;
+use warnings;
+
+
+use constant FALSE                             => 0;
+use constant TRUE                              => 1;
+use constant STACK_BOTTOM                      => -1;
+use constant SUCCESS                           => -1;
+
+# Конструктор
+sub new 
+{
+  my ($class) = @_;
+  
+  my $self =
   {
-    my ($class) = @_;
-    
-    my $self =
-    {
-      stack => [],
-    };
-    
-    bless $self, $class;
-    
-    return $self;
+    stack => [],
+  };
+  
+  bless $self, $class;
+  
+  return $self;
+}
+
+# Получить число элементов в стеке
+sub count
+{
+  my($self) = @_;
+  return (scalar(@{$self->{stack}}));
+}
+
+# Проверить, что стек пуст
+sub is_empty
+{
+  my($self) = @_;
+  return $self->count() ? FALSE : TRUE;
+}
+
+# Получить верхний элемент, но не удалять его из стека
+sub peek
+{
+  my($self) = @_;
+  return $self->{stack}->[STACK_BOTTOM];
+}
+
+# Получить элемент по индексу, но не удалять его из стека
+sub get($)
+{
+  my($self, $_index) = @_;
+  
+  if(not defined $_index)
+  {
+    return undef;
   }
   
-  # Получить число элементов в стеке
-  sub count
+  # Последний элемент стека (индекс -1) это элемент массива с индексом 0
+  # Первый элемент стека (индекс 0) это элемент массива с индексом -1
+  # Другими словами, вершина стека это последний элемент массива
+  # Поэтому к отрицательным индексам прибавляем 1 и у суммы меняем знак
+  # А у положительных индексов меняем знак, потом вычитаем 1
+  # Можно изменить реализацию вставки через splice, чтобы вершина стека соответствовала 0 элементу массива
+  if($_index < 0)
   {
-    my($self) = @_;
-    return (scalar(@{$self->{stack}}));
+    $self->{stack}->[-($_index + 1)];
+  }
+  else
+  {
+    $self->{stack}->[(-$_index) - 1];
+  }
+}
+
+# Получить верхний элемент, удалить его из стека
+sub pop
+{
+  my($self) = @_;
+  return pop(@{$self->{stack}});
+}
+
+# Очистить стек
+sub clear
+{
+  my($self) = @_;
+  $self->{stack} = [];
+  return SUCCESS;
+}
+
+# Добавить элемент в стек
+sub push($)
+{
+  my($self, $item) = @_;
+  
+  if(defined $item)
+  {
+    push(@{$self->{stack}}, $item);
   }
   
-  # Проверить, что стек пуст
-  sub is_empty
-  {
-    my($self) = @_;
-    return $self->count() ? FALSE : TRUE;
-  }
-  
-  # Получить верхний элемент, но не удалять его из стека
-  sub peek
-  {
-    my($self) = @_;
-    return $self->{stack}->[STACK_BOTTOM];
-  }
-  
-  # Получить элемент по индексу, но не удалять его из стека
-  sub get($)
-  {
-    my($self, $_index) = @_;
-    
-    if(not defined $_index)
-    {
-      return undef;
-    }
-    
-    # Последний элемент стека (индекс -1) это элемент массива с индексом 0
-    # Первый элемент стека (индекс 0) это элемент массива с индексом -1
-    # Другими словами, вершина стека это последний элемент массива
-    # Поэтому к отрицательным индексам прибавляем 1 и у суммы меняем знак
-    # А у положительных индексов меняем знак, потом вычитаем 1
-    # Можно изменить реализацию вставки через splice, чтобы вершина стека соответствовала 0 элементу массива
-    if($_index < 0)
-    {
-      $self->{stack}->[-($_index + 1)];
-    }
-    else
-    {
-      $self->{stack}->[(-$_index) - 1];
-    }
-  }
-  
-  # Получить верхний элемент, удалить его из стека
-  sub pop
-  {
-    my($self) = @_;
-    return pop(@{$self->{stack}});
-  }
-  
-  # Очистить стек
-  sub clear
-  {
-    my($self) = @_;
-    $self->{stack} = [];
-    return SUCCESS;
-  }
-  
-  # Добавить элемент в стек
-  sub push($)
-  {
-    my($self, $item) = @_;
-    
-    if(defined $item)
-    {
-      push(@{$self->{stack}}, $item);
-    }
-    
-    return $self->count();
-  }
+  return $self->count();
 }
 
 1;
