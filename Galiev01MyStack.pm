@@ -92,28 +92,29 @@ sub new
 # Получить число элементов в стеке
 sub count
 {
-  my($self) = @_;
+  my($self) = shift;
   return (scalar(@{$self->{stack}}));
 }
 
 # Проверить, что стек пуст
 sub is_empty
 {
-  my($self) = @_;
+  my($self) = shift;
   return $self->count() ? FALSE : TRUE;
 }
 
 # Получить верхний элемент, но не удалять его из стека
 sub peek
 {
-  my($self) = @_;
+  my($self) = shift;
   return $self->{stack}->[STACK_BOTTOM];
 }
 
 # Получить элемент по индексу, но не удалять его из стека
 sub get($)
 {
-  my($self, $_index) = @_;
+  my($self) = shift;
+  my($_index) = shift;
   
   if(not defined $_index)
   {
@@ -139,14 +140,14 @@ sub get($)
 # Получить верхний элемент, удалить его из стека
 sub pop
 {
-  my($self) = @_;
+  my($self) = shift;
   return pop(@{$self->{stack}});
 }
 
 # Очистить стек
 sub clear
 {
-  my($self) = @_;
+  my($self) = shift;
   $self->{stack} = [];
   return SUCCESS;
 }
@@ -154,7 +155,8 @@ sub clear
 # Добавить элемент в стек
 sub push($)
 {
-  my($self, $item) = @_;
+  my($self) = shift;
+  my($item) = shift;
   
   if(defined $item)
   {
