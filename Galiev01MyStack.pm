@@ -93,7 +93,7 @@ sub new
 sub count
 {
   my($self) = shift;
-  return (scalar(@{$self->{stack}}));
+  return scalar( @{ $self->{stack} } );
 }
 
 # Проверить, что стек пуст
@@ -129,11 +129,11 @@ sub get
   # Можно изменить реализацию вставки через splice, чтобы вершина стека соответствовала 0 элементу массива
   if($_index < 0)
   {
-    $self->{stack}->[-($_index + 1)];
+    $self->{stack}->[ -($_index + 1) ];
   }
   else
   {
-    $self->{stack}->[(-$_index) - 1];
+    $self->{stack}->[ (-$_index) - 1 ];
   }
 }
 
@@ -141,7 +141,7 @@ sub get
 sub pop
 {
   my($self) = shift;
-  return pop(@{$self->{stack}});
+  return pop( @{ $self->{stack} } );
 }
 
 # Очистить стек
@@ -160,7 +160,7 @@ sub push
   
   if(defined $item)
   {
-    push(@{$self->{stack}}, $item);
+    push( @{ $self->{stack} }, $item );
   }
   
   return $self->count();
