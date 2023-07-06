@@ -111,7 +111,7 @@ sub peek
 }
 
 # Получить элемент по индексу, но не удалять его из стека
-sub get($)
+sub get
 {
   my($self) = shift;
   my($_index) = shift;
@@ -153,7 +153,7 @@ sub clear
 }
 
 # Добавить элемент в стек
-sub push($)
+sub push
 {
   my($self) = shift;
   my($item) = shift;
