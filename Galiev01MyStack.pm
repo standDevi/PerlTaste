@@ -97,7 +97,7 @@ package MyStack;
   }
   
   # Проверить, что стек пуст
-  sub empty
+  sub is_empty
   {
     my($self) = @_;
     return $self->count() ? FALSE : TRUE;
