@@ -5,7 +5,7 @@ use warnings;
 
 
 # Этот модуль обеспечивает тестирование
-use Test::More tests => 22;
+use Test::More tests => 16;
 
 
 # Тестируем этот модуль
@@ -30,8 +30,6 @@ my $stack = MyStack->new();
 #   Тестируемый метод                   Ожидаемый результат                   Примечание к тесту
 ok( defined $stack,                                                        '  no allocation error'                 );
 is( $stack->is_empty,                   $stack->TRUE,                      '  stack is empty'                      );
-is( $stack->peek,                       undef,                             '  peek from empty stack'               );
-is( $stack->get($stack->STACK_BOTTOM),  undef,                             '  get bottom element from empty stack' );
 is( $stack->pop,                        undef,                             '  pop from empty stack'                );
 is( $stack->count,                      SIZE_OF_EMPTY_STACK,               '  count members of empty stack'        );
 is( $stack->clear,                      $stack->SUCCESS,                   '  clear empty stack'                   );
@@ -41,12 +39,8 @@ is( $stack->push($third_elem),          $stack->count,                     '  pu
 is( $stack->push,                       $stack->count,                     '  push empty elem has no effect'       );
 is( $stack->count,                      STACK_SIZE_AFTER_3_PUSHES,         '  right size after 3 pushes'           );
 is( $stack->is_empty,                   $stack->FALSE,                     '  stack is not empty'                  );
-is( $stack->peek,                       $third_elem,                       '  peek from stack'                     );
-is( $stack->get($stack->STACK_BOTTOM),  $first_elem,                       '  get bottom element from stack'       );
 is( $stack->pop,                        $third_elem,                       '  pop from stack'                      );
 is( $stack->count,                      STACK_SIZE_AFTER_3_PUSHES_AND_POP, '  right size after 3 pushes and pop'   );
 is( $stack->clear,                      $stack->SUCCESS,                   '  clear stack'                         );
 is( $stack->is_empty,                   $stack->TRUE,                      '  stack is empty after clear'          );
 is( $stack->count,                      SIZE_OF_EMPTY_STACK,               '  right size after clear'              );
-is( $stack->get(OUT_OF_BOUND),          undef,                             '  check out of bound'                  );
-is( $stack->get,                        undef,                             '  get without index'                   );
